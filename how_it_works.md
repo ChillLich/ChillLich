@@ -47,4 +47,4 @@ graph LR
 
 ## LICENSE
 
-MIT, создано ChillLich
+MIT, создано [ChillLich](https://github.com/ChillLich)
