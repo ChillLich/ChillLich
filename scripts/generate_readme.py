@@ -9,23 +9,31 @@ import requests
 from ascii_magic import AsciiArt
 from pyfiglet import Figlet
 
+FALLBACK_NAME = "ChillLich"
+
 # случайно выбирает один изх них
 # Можно добавить: "3-d",  "speed", "tinker-toy"
 LIST_OF_FONTS = ["bulbhead", "lean", "larry3d", "standard", "doom"]
 TEXT_WIDTH = 120
 
 # Размер аватарки
-COLUMNS = 60
-add_avatar = False
+COLUMNS = 120  # в символах. 104 чтобы не скроллить горизонтально если добавлять как raw ascii
+ADD_AVATAR = True
+# False чтобы вывести аватарку как изображение
+# True чтобы вывести аватарку символами ascii, только для простых сильноконтрастных аватарок
+AS_RAW_ASCII = False
+AS_IMAGE_WIDTH = 300  # 890
 
 
-def get_avatar_ascii(username: str, columns: int = 65) -> str:
+def get_avatar_ascii(username: str, columns: int = 104) -> str:
     """Получить ASCII строку - аватарку GitHub, использует API"""
     request = requests.get(f"https://api.github.com/users/{username}")
     request.raise_for_status()
     avatar_url = request.json()["avatar_url"]
 
     art = AsciiArt.from_url(avatar_url)
+    if not AS_RAW_ASCII:
+        img = art.to_image_file("avatar_ascii.png", columns=columns)
     return art.to_ascii(columns=columns)
 
 
@@ -35,7 +43,7 @@ def make_ascii(text: str, font: str = "standard", width: int = TEXT_WIDTH) -> st
 
 
 def main():
-    username = os.getenv("GITHUB_REPOSITORY_OWNER", "Octocat").upper()
+    username = os.getenv("GITHUB_REPOSITORY_OWNER", FALLBACK_NAME).upper()
     FONT = choice(LIST_OF_FONTS)
     NAME_FONT = FONT
     DATE_FONT = FONT
@@ -46,9 +54,20 @@ def main():
     # output
     terminal_block = f">>> profile.name()\n{name_ascii}" "\n\n" f">>> date.today()\n{date_ascii}"
 
-    if add_avatar:
+    if ADD_AVATAR:
+        ascii_art_as_image = (
+            f'<img src="avatar_ascii.png" width="{AS_IMAGE_WIDTH}" alt="ASCII Avatar" />'
+        )
         avatar_ascii = get_avatar_ascii(username, COLUMNS)
-        terminal_block += "\n\n" + f">>> profile.avatar()\n\n{avatar_ascii}"
+        if AS_RAW_ASCII:
+            terminal_block += "\n\n" + f">>> profile.avatar()\n\n{avatar_ascii}"
+        else:
+            terminal_block += "\n\n" + ">>> profile.avatar()"
+
+    terminal_block = f"```\n{terminal_block}\n```"
+
+    if not AS_RAW_ASCII:
+        terminal_block += "\n" + ascii_art_as_image
 
     try:
         with open("template.md", "r", encoding="utf-8") as f:
@@ -56,7 +75,7 @@ def main():
     except FileNotFoundError:
         content = ""
 
-    readme_content = content.replace("<!-- TERMINAL_PLACEHOLDER -->", f"```\n{terminal_block}\n```")
+    readme_content = content.replace("<!-- TERMINAL_PLACEHOLDER -->", terminal_block)
 
     with open("README.md", "w", encoding="utf-8") as f:
         f.write(readme_content)
