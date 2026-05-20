@@ -14,15 +14,15 @@ FALLBACK_NAME = "ChillLich"
 # случайно выбирает один изх них
 # Можно добавить: "3-d",  "speed", "tinker-toy"
 LIST_OF_FONTS = ["bulbhead", "lean", "larry3d", "standard", "doom"]
-TEXT_WIDTH = 120
+TEXT_WIDTH = 120  # максимальная ширина в символах для pyfiglet
 
 # Размер аватарки
 COLUMNS = 120  # в символах. 104 чтобы не скроллить горизонтально если добавлять как raw ascii
-ADD_AVATAR = True
-# False чтобы вывести аватарку как изображение
+ADD_AVATAR = True  # Показывать ли аватар?
+# False чтобы вывести аватарку как изображение <img>
 # True чтобы вывести аватарку символами ascii, только для простых сильноконтрастных аватарок
 AS_RAW_ASCII = False
-AS_IMAGE_WIDTH = 300  # 890
+AS_IMAGE_WIDTH = 300  # ширина PNG в символах не рекомендуется более 890
 
 
 def get_avatar_ascii(username: str, columns: int = 104) -> str:
