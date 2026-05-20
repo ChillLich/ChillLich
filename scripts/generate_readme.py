@@ -10,11 +10,13 @@ from ascii_magic import AsciiArt
 from pyfiglet import Figlet
 
 # случайно выбирает один изх них
-# Можно добавить: "3-d", "lean", "speed"
-LIST_OF_FONTS = ["bulbhead", "larry3d", "standard", "doom", "tinker-toy"]
+# Можно добавить: "3-d",  "speed", "tinker-toy"
+LIST_OF_FONTS = ["bulbhead", "lean", "larry3d", "standard", "doom"]
+TEXT_WIDTH = 120
 
 # Размер аватарки
-COLUMNS = 65
+COLUMNS = 60
+add_avatar = True
 
 
 def get_avatar_ascii(username: str, columns: int = 65) -> str:
@@ -27,29 +29,27 @@ def get_avatar_ascii(username: str, columns: int = 65) -> str:
     return art.to_ascii(columns=columns)
 
 
-def make_ascii(text: str, font: str = "standard") -> str:
+def make_ascii(text: str, font: str = "standard", width: int = TEXT_WIDTH) -> str:
     """Генерация ASCII-арта с указанным шрифтом"""
-    return Figlet(font=font).renderText(text).rstrip()
+    return Figlet(font=font, width=width).renderText(text).rstrip()
 
 
 def main():
-    username = os.getenv("GITHUB_REPOSITORY_OWNER", "Octocat")
+    username = os.getenv("GITHUB_REPOSITORY_OWNER", "Octocat").upper()
+    print(username)
     FONT = choice(LIST_OF_FONTS)
     NAME_FONT = FONT
     DATE_FONT = FONT
 
     name_ascii = make_ascii(username, NAME_FONT)
     date_ascii = make_ascii(datetime.now().strftime("%d.%m.%Y"), DATE_FONT)
-    avatar_ascii = get_avatar_ascii(username, COLUMNS)
 
     # output
-    terminal_block = (
-        f">>> profile.name()\n{name_ascii}"
-        "\n\n"
-        f">>> time.today()\n{date_ascii}"
-        "\n\n"
-        f">>> profile.avatar()\n{avatar_ascii}"
-    )
+    terminal_block = f">>> profile.name()\n{name_ascii}" "\n\n" f">>> time.today()\n{date_ascii}"
+
+    if add_avatar:
+        avatar_ascii = get_avatar_ascii(username, COLUMNS)
+        terminal_block += "\n\n" + f">>> profile.avatar()\n\n{avatar_ascii}"
 
     try:
         with open("template.md", "r", encoding="utf-8") as f:
