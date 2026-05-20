@@ -16,7 +16,7 @@ TEXT_WIDTH = 120
 
 # Размер аватарки
 COLUMNS = 60
-add_avatar = True
+add_avatar = False
 
 
 def get_avatar_ascii(username: str, columns: int = 65) -> str:
@@ -36,7 +36,6 @@ def make_ascii(text: str, font: str = "standard", width: int = TEXT_WIDTH) -> st
 
 def main():
     username = os.getenv("GITHUB_REPOSITORY_OWNER", "Octocat").upper()
-    print(username)
     FONT = choice(LIST_OF_FONTS)
     NAME_FONT = FONT
     DATE_FONT = FONT
@@ -45,7 +44,7 @@ def main():
     date_ascii = make_ascii(datetime.now().strftime("%d.%m.%Y"), DATE_FONT)
 
     # output
-    terminal_block = f">>> profile.name()\n{name_ascii}" "\n\n" f">>> time.today()\n{date_ascii}"
+    terminal_block = f">>> profile.name()\n{name_ascii}" "\n\n" f">>> date.today()\n{date_ascii}"
 
     if add_avatar:
         avatar_ascii = get_avatar_ascii(username, COLUMNS)
