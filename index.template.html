@@ -149,6 +149,11 @@
         height: auto;
         image-rendering: pixelated;
       }
+      .terminal-body pre.ascii-avatar {
+        white-space: pre; /* НЕ переносить */
+        overflow-x: auto; /* Горизонтальный скролл вместо поломки */
+        word-wrap: normal;
+      }
 
       /* Адаптив */
       @media (max-width: 600px) {
