@@ -17,12 +17,20 @@ LIST_OF_FONTS = ["bulbhead", "lean", "larry3d", "standard", "doom"]
 TEXT_WIDTH = 120  # максимальная ширина в символах для pyfiglet
 
 # Размер аватарки
-COLUMNS = 120  # в символах. 104 чтобы не скроллить горизонтально если добавлять как raw ascii
+COLUMNS = 104  # в символах. 104 чтобы не скроллить горизонтально если добавлять как raw ascii
 ADD_AVATAR = True  # Показывать ли аватар?
-# False чтобы вывести аватарку как изображение <img>
+# False чтобы вывести аватарку как изображение <img> в README.md
 # True чтобы вывести аватарку символами ascii, только для простых сильноконтрастных аватарок
-AS_RAW_ASCII = False
-AS_IMAGE_WIDTH = 300  # ширина PNG в символах не рекомендуется более 890
+AS_RAW_ASCII_README = False
+# Если True то создает плейсхолдеры чтоб на сайте была не картинка а raw ascii
+REPLACE_AVATAR = True
+AS_IMAGE_WIDTH = 300  # ширина PNG не рекомендуется более 890
+
+# Всё что в README.md между заданными плейсхолдерами ишнорируется при сборке html
+IGNORE_START = "<!-- IGNORE_S -->"
+IGNORE_END = "<!-- IGNORE_E -->"
+# Заменяется на ascii art
+REPLACE_AVATAR_PLACEHOLDER = "<!-- AVATAR_AS_RAW_ASCII -->"
 
 
 def get_avatar_ascii(username: str, columns: int = 104) -> str:
@@ -32,9 +40,11 @@ def get_avatar_ascii(username: str, columns: int = 104) -> str:
     avatar_url = request.json()["avatar_url"]
 
     art = AsciiArt.from_url(avatar_url)
-    if not AS_RAW_ASCII:
-        img = art.to_image_file("avatar_ascii.png", columns=columns)
-    return art.to_ascii(columns=columns)
+    art.to_image_file("avatar_ascii.png", columns=columns)
+    ascii = art.to_ascii(columns=columns)
+    with open("ASCII_AVATAR.txt", "w", encoding="utf-8") as f:
+        f.write(ascii)
+    return ascii
 
 
 def make_ascii(text: str, font: str = "standard", width: int = TEXT_WIDTH) -> str:
@@ -59,15 +69,20 @@ def main():
             f'<img src="avatar_ascii.png" width="{AS_IMAGE_WIDTH}" alt="ASCII Avatar" />'
         )
         avatar_ascii = get_avatar_ascii(username, COLUMNS)
-        if AS_RAW_ASCII:
+        if AS_RAW_ASCII_README:
             terminal_block += "\n\n" + f">>> profile.avatar()\n\n{avatar_ascii}"
         else:
             terminal_block += "\n\n" + ">>> profile.avatar()"
 
     terminal_block = f"```\n{terminal_block}\n```"
 
-    if not AS_RAW_ASCII:
-        terminal_block += "\n" + ascii_art_as_image
+    if ADD_AVATAR and not AS_RAW_ASCII_README:
+        terminal_block += (
+            "\n"
+            + f"{IGNORE_START if REPLACE_AVATAR else ''}"
+            + ascii_art_as_image
+            + f"{IGNORE_END + REPLACE_AVATAR_PLACEHOLDER if REPLACE_AVATAR else ''}"
+        )
 
     try:
         with open("template.md", "r", encoding="utf-8") as f:

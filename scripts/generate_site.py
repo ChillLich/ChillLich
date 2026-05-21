@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 """Сборка сайта: README.md -> index.html (с игнорированием блоков)"""
 
+import html
 import os
 import re
 from pathlib import Path
 
 import markdown
+from generate_readme import REPLACE_AVATAR_PLACEHOLDER
 
 README_FILE = "README.md"
 TEMPLATE_HTML = "index.template.html"
@@ -74,6 +76,17 @@ def fix_relative_links(html_content: str) -> str:
     return re.sub(pattern, replace, html_content)
 
 
+def get_raw_ascii():
+    try:
+        with open("ASCII_AVATAR.txt", "r", encoding="utf-8") as f:
+            content = f.read()
+    except FileNotFoundError:
+        content = ""
+
+    content = html.escape(content)
+    return content
+
+
 def main():
     print("Building site...")
 
@@ -85,14 +98,17 @@ def main():
     readme_html = markdown.markdown(readme_clean, extensions=["tables", "fenced_code"])
     readme_html = fix_relative_links(readme_html)
 
+    ascii_avatar = f'<pre class="ascii-avatar">\n{get_raw_ascii()}\n</pre>'
+
     final_html = html_template
     final_html = final_html.replace(CONTENT_PLACEHOLDER, readme_html)
+    final_html = final_html.replace(REPLACE_AVATAR_PLACEHOLDER, ascii_avatar)
     final_html = final_html.replace(TITLE_PLACEHOLDER, USERNAME)
     final_html = final_html.replace(PROFILE_LINK_PLACEHOLDER, PROFILE_URL)
     final_html = final_html.replace(REPO_LINK_PLACEHOLDER, REPO_URL)
 
     save_text(OUTPUT_FILE, final_html)
-    print(f"✅ Site built successfully: {OUTPUT_FILE}")
+    print(f"✅ Site built for {USERNAME} successfully: {OUTPUT_FILE}")
 
 
 if __name__ == "__main__":
