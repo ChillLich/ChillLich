@@ -4,7 +4,8 @@
 > 💡 *Обновляется автоматически. [Как это работает?](how_it_works.md)*
 
 **[Профиль GitHub.](https://github.com/ChillLich)**
-**[GitHub Pages website](https://chilllich.github.io/ChillLich/)**
+
+**[GitHub Pages website.](https://chilllich.github.io/ChillLich/)**
 
 ---
 
@@ -17,6 +18,7 @@
 | **[QA & Testing Suite](https://github.com/ChillLich/Django-Testing)** | Демонстрация культуры тестирования: модульные и интеграционные тесты для Django-приложений. | **Надежность:** 100% покрытие критических путей, изоляция через моки/фикстуры, проверка граничных случаев и прав доступа. | `Python`, `pytest`, `unittest`, `pytest-django`, `CI/CD basics` |
 | **[Diary Platform](https://github.com/ChillLich/blogdiary)** | Полноценный блог-сервис с классическим MVC, админкой и пользовательскими профилями. | **Архитектура:** Clean Code, DRY-принципы, миксины для переиспользования логики, оптимизация SQL-запросов (`select_related`). | `Python`, `Django`, `PostgreSQL`, `Bootstrap5`, `CBV` |
 | **[Meteo&Tails Bot](https://github.com/ChillLich/Meteo-Tails-Bot)** | Telegram-бот с прогнозом погоды, авто-уведомлениями и развлекательным контентом. | **UX & Интеграции:** Учет часовых поясов (GeoNames), работа с внешними API (OpenWeather), гибкая конфигурация логирования. | `Python`, `Telegram API`, `OpenWeatherMap`, `GeoNames`, `.env config`, `Logging` |
-| **[Pomodoro Timer](https://github.com/ChillLich/pomodoro-timer)** | Десктопное приложение для тайм-менеджмента по методу Помодоро с гибкой настройкой интервалов. | **Desktop Integration:** Управление системным медиаплеером, режим «всегда сверху», кастомные темы, авто-сохранение настроек. | `Python`, `Tkinter`, `pygame`, `keyboard`, `JSON config` |
+| **[Pomodoro Timer](https://github.com/ChillLich/pomodoro-timer)** <br> <br>**[GitHub Pages проекта.](https://chilllich.github.io/pomodoro-timer/)** | Десктопное приложение для тайм-менеджмента по методу Помодоро с гибкой настройкой интервалов. | **Desktop Integration:** Управление системным медиаплеером, режим «всегда сверху», кастомные темы, авто-сохранение настроек. | `Python`, `Tkinter`, `pygame`, `keyboard`, `JSON config` |
+| **[Kittygram CI/CD](https://github.com/ChillLich/kittygram_cicd)** | Full-stack платформа для фото питомцев с автоматическим деплоем и мониторингом. | **Production-ready DevOps:** полный CI/CD пайплайн (тесты → сборка → деплой на VPS), контейнеризация 4 сервисов, авто-уведомления, Nginx reverse proxy. | `Python`, `Django`, `DRF`, `React`, `PostgreSQL`, `Docker`, `Docker Compose`, `GitHub Actions`, `Nginx`, `CI/CD` |
 
 ---
