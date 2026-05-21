@@ -1,34 +1,106 @@
 # How It Works
 
-Это лёгкий Python-скрипт, который автоматически генерирует и обновляет GitHub README с помощью ASCII-арта. При запуске он забирает данные профиля через GitHub API, преобразует имя в текстовый баннер (pyfiglet), а аватар — в ASCII-символы или PNG (ascii_magic), после чего подставляет результат в шаблон и сохраняет в README.md. Работает в связке с GitHub Actions: обновляет профиль по расписанию и при пуше.
+Это Python-скрипт, который автоматически генерирует и обновляет GitHub README с ASCII-артом, а также собирает персональный сайт на GitHub Pages. При запуске он забирает данные профиля через GitHub API, преобразует имя в текстовый баннер (`pyfiglet`), а аватар - в ASCII-символы или PNG (`ascii_magic`), после чего подставляет результат в шаблоны. Работает в связке с GitHub Actions: обновляет профиль по расписанию, при пуше и вручную.
 
-## Что делает скрипт
+## Что делает система
 
-1. Берёт имя пользователя из `GITHUB_REPOSITORY_OWNER` (или fallback)
-2. Случайно выбирает шрифт из `LIST_OF_FONTS`
-3. Генерирует:
-   - **Имя** → `pyfiglet` ASCII-арт
-   - **Дату** → `pyfiglet` ASCII-арт  
-   - **Аватар** → `ascii_magic` (raw-символы ASCII или PNG из них же)
-4. Вставляет блок в `<!-- TERMINAL_PLACEHOLDER -->` шаблона
-5. Сохраняет результат в `README.md`
+### 1. Генерация README (`generate_readme.py`)
+
+- Берёт имя пользователя из `GITHUB_REPOSITORY_OWNER` (или fallback)
+- Случайно выбирает шрифт из `LIST_OF_FONTS`
+- Генерирует:
+  - **Имя** → `pyfiglet` ASCII-арт
+  - **Дату** → `pyfiglet` ASCII-арт  
+  - **Аватар** → `ascii_magic` (PNG + raw ASCII)
+- Вставляет блок в `<!-- TERMINAL_PLACEHOLDER -->` файла `template.md`
+- Сохраняет результат в `README.md`
+
+### 2. Сборка сайта (`generate_site.py`)
+
+- Читает `README.md` и удаляет блоки между `<!-- IGNORE_S -->` и `<!-- IGNORE_E -->`
+- Конвертирует Markdown в HTML (с поддержкой таблиц и блоков кода)
+- Заменяет относительные ссылки на абсолютные (`github.com` / `raw.githubusercontent.com`)
+- Подставляет raw ASCII-аватар вместо PNG (если настроено)
+- Вставляет результат в `index.template.html` по плейсхолдерам
+- Сохраняет финальный сайт в `docs/index.html` для GitHub Pages
 
 ## Конфигурация
 
-Все настройки в начале `generate_readme.py`
+Все настройки находятся в начале файлов и объяснены в коде комментариями:
+`generate_readme.py`, `index.template.html`, `generate_site.py`
 
-### Шаблон `template.md`
+## Система плейсхолдеров
 
-Этот файл можно дополнить, всё кроме плейсхолдера будет в финальном README.
-Обязателен плейсхолдер для замены на сгенерированный блок.
+### В `template.md` (для README)
 
 ```markdown
 <!-- TERMINAL_PLACEHOLDER -->
 ```
 
-### Как скопировать к себе
+Заменяется на сгенерированный терминальный блок с именем, датой и аватаром.
 
-Нажмите `Use this template`, назовите репозиторий своим ником, настройте `generate_readme.py` и запустите Actions.
+### В `template.md` (для сборки сайта)
+
+```markdown
+<!-- IGNORE_S -->
+Этот блок будет удалён при сборке сайта.
+Например, здесь может быть PNG-аватар, который на сайте заменится на raw ASCII.
+<!-- IGNORE_E -->
+```
+
+```markdown
+<!-- AVATAR_AS_RAW_ASCII -->
+
+```
+
+Заменяется на `<pre>` блок с raw ASCII-аватаром при сборке сайта (если `REPLACE_AVATAR = True`).
+Используется при выборе определенной конфигурации.
+
+### В `index.template.html` (для сайта)
+
+```html
+<title><!-- TITLE_PLACEHOLDER --> | Profile</title>
+<a href="<!-- PROFILE_LINK_PLACEHOLDER -->">Profile</a>
+<a href="<!-- REPO_LINK_PLACEHOLDER -->">Repo</a>
+<!-- CONTENT_PLACEHOLDER -->
+```
+
+Эти плейсхолдеры автоматически заполняются данными из GitHub API:
+
+- `TITLE_PLACEHOLDER` → имя пользователя
+- `PROFILE_LINK_PLACEHOLDER` → ссылка на профиль GitHub
+- `REPO_LINK_PLACEHOLDER` → ссылка на репозиторий
+- `CONTENT_PLACEHOLDER` → отрендеренный Markdown из README
+
+## Как скопировать к себе
+
+1. Нажмите **Use this template** в GitHub
+2. Назовите репозиторий **строго своим ником** (например, `ChillLich/ChillLich`)
+3. Настройте параметры в `scripts/generate_readme.py`
+4. Запустите workflow **Update Profile README** вручную (вкладка Actions) или дождитесь срабатывания по расписанию
+5. Включите GitHub Pages в настройках репозитория: **Settings → Pages → Source: Deploy from a branch → Branch: main → Folder: /docs**
+
+## GitHub Actions Workflow
+
+Автоматизировано с помощью Actions
+
+## Темы сайта
+
+Сайт поддерживает две темы с сохранением выбора в `localStorage`:
+
+- **💡 Светлая (BIOS)**: синий фон, серый текст, жесткая тень - стиль старых BIOS
+- **🌙 Темная (Классический терминал)**: черный фон, красный текст - современный терминал
+
+Переключатель находится в заголовке окна терминала рядом со ссылками на профиль и репозиторий.
+
+## Зависимости
+
+```txt
+ascii_magic==2.7.5    # Конвертация изображений → ASCII / PNG
+pyfiglet==1.0.4       # Генерация текстовых баннеров
+requests==2.34.2      # HTTP-запросы к GitHub API
+markdown==3.10.2      # Парсинг Markdown в HTML
+```
 
 ## LICENSE
 
