@@ -26,6 +26,9 @@ TITLE_PLACEHOLDER = "<!-- TITLE_PLACEHOLDER -->"
 PROFILE_LINK_PLACEHOLDER = "<!-- PROFILE_LINK_PLACEHOLDER -->"
 REPO_LINK_PLACEHOLDER = "<!-- REPO_LINK_PLACEHOLDER -->"
 
+FAVICON_PLACEHOLDER = "<!-- FAVICON_PLACEHOLDER -->"
+
+
 USERNAME = os.getenv("GITHUB_REPOSITORY_OWNER", "ChillLich")
 FALLBACK_REPO_URL = "ChillLich/ChillLich"
 USER_REPO = os.getenv("GITHUB_REPOSITORY", FALLBACK_REPO_URL)
@@ -33,6 +36,8 @@ BASE_GITHUB_URL = f"https://github.com/{USER_REPO}/blob/main/"
 RAW_GITHUB_URL = f"https://raw.githubusercontent.com/{USER_REPO}/main/"
 PROFILE_URL = f"https://github.com/{USERNAME}"
 REPO_URL = f"https://github.com/{USER_REPO}/"
+
+FAVICON_URL = f"{RAW_GITHUB_URL}avatar_ascii.png"
 
 
 def load_text(path: str) -> str:
@@ -106,6 +111,7 @@ def main():
     final_html = final_html.replace(TITLE_PLACEHOLDER, USERNAME)
     final_html = final_html.replace(PROFILE_LINK_PLACEHOLDER, PROFILE_URL)
     final_html = final_html.replace(REPO_LINK_PLACEHOLDER, REPO_URL)
+    final_html = final_html.replace(FAVICON_PLACEHOLDER, FAVICON_URL)
 
     save_text(OUTPUT_FILE, final_html)
     print(f"✅ Site built for {USERNAME} successfully: {OUTPUT_FILE}")
