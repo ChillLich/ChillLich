@@ -14,19 +14,24 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - run: pip install -r requirements.txt
-      - run: python scripts/generate_readme.py
-      - run: |
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Generate ASCII README
+        run: python scripts/generate_readme.py
+      - name: Build pages site
+        run: python scripts/generate_site.py
+      - name: Commit and push changes
+        run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add README.md
-          [ -f avatar_ascii.png ] && git add avatar_ascii.png
+          git add README.md docs/
+          [ -f avatar_ascii.png ] && git add avatar_ascii.png || true
 
           git commit -m "chore: auto-update" && git push || true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
