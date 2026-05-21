@@ -6,8 +6,8 @@
     <title><!-- TITLE_PLACEHOLDER --> | Profile</title>
     <style>
       /* =========================================
-           🎨 КОНФИГУРАЦИЯ ЦВЕТОВ (Меняй здесь!)
-           ========================================= */
+      🎨 КОНФИГУРАЦИЯ ЦВЕТОВ (Меняй здесь!)
+      ========================================= */
       :root {
         /* Общие настройки */
         --font-mono: "Courier New", Courier, monospace;
@@ -41,8 +41,8 @@
       }
 
       /* =========================================
-           🛠️ БАЗОВЫЕ СТИЛИ
-           ========================================= */
+      🛠️ БАЗОВЫЕ СТИЛИ
+      ========================================= */
       * {
         box-sizing: border-box;
         margin: 0;
@@ -61,8 +61,8 @@
       }
 
       /* =========================================
-           🖥️ ОКНО ТЕРМИНАЛА (Windows XP Style)
-           ========================================= */
+      🖥️ ОКНО ТЕРМИНАЛА (Windows XP Style)
+      ========================================= */
       .terminal-window {
         width: 100%;
         max-width: 900px;
@@ -154,6 +154,42 @@
         overflow-x: auto; /* Горизонтальный скролл вместо поломки */
         word-wrap: normal;
       }
+      /* =========================================
+      ФУТЕР
+      ========================================= */
+      .site-footer {
+        width: 100%;
+        max-width: 900px;
+        margin-top: 24px;
+        padding: 12px 20px;
+        font-size: 13px;
+        color: var(--term-text-color);
+        text-shadow: var(--term-shadow);
+        opacity: 0.7;
+        transition:
+          color var(--transition-speed),
+          text-shadow var(--transition-speed),
+          opacity var(--transition-speed);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .site-footer:hover {
+        opacity: 1;
+      }
+
+      .site-footer a {
+        color: var(--link-color);
+        text-decoration: underline;
+        font-weight: bold;
+      }
+
+      .site-footer a:hover {
+        text-decoration: none;
+      }
 
       /* Адаптив */
       @media (max-width: 600px) {
@@ -201,6 +237,16 @@
         <!-- CONTENT_PLACEHOLDER -->
       </div>
     </div>
+
+    <footer class="site-footer">
+      <span>© 2026</span>
+      <span>•</span>
+      <a href="https://github.com/ChillLich" target="_blank" rel="noopener"
+        >ChillLich</a
+      >
+      <span>•</span>
+      <span>Built with ASCII & &#x2764;</span>
+    </footer>
 
     <script>
       // Логика переключения темы с сохранением в localStorage
