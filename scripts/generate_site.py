@@ -1,0 +1,99 @@
+#!/usr/bin/env python3
+"""Сборка сайта: README.md -> index.html (с игнорированием блоков)"""
+
+import os
+import re
+from pathlib import Path
+
+import markdown
+
+README_FILE = "README.md"
+TEMPLATE_HTML = "index.template.html"
+OUTPUT_DIR = Path("docs")
+OUTPUT_FILE = OUTPUT_DIR / "index.html"
+
+# Всё что в README.md между заданными плейсхолдерами ишнорируется при сборке html
+IGNORE_START = "<!-- IGNORE_S -->"
+IGNORE_END = "<!-- IGNORE_E -->"
+
+# по нему вставляется результат. обязательно должен присутствовать в TEMPLATE_HTML файле
+CONTENT_PLACEHOLDER = "<!-- CONTENT_PLACEHOLDER -->"
+
+# Плейсхолдеры для динамических данных в TEMPLATE_HTML файле, тоже должны присутствовать
+TITLE_PLACEHOLDER = "<!-- TITLE_PLACEHOLDER -->"
+PROFILE_LINK_PLACEHOLDER = "<!-- PROFILE_LINK_PLACEHOLDER -->"
+REPO_LINK_PLACEHOLDER = "<!-- REPO_LINK_PLACEHOLDER -->"
+
+USERNAME = os.getenv("GITHUB_REPOSITORY_OWNER", "ChillLich")
+FALLBACK_REPO_URL = "ChillLich/ChillLich"
+USER_REPO = os.getenv("GITHUB_REPOSITORY", FALLBACK_REPO_URL)
+BASE_GITHUB_URL = f"https://github.com/{USER_REPO}/blob/main/"
+RAW_GITHUB_URL = f"https://raw.githubusercontent.com/{USER_REPO}/main/"
+PROFILE_URL = f"https://github.com/{USERNAME}"
+REPO_URL = f"https://github.com/{USER_REPO}/"
+
+
+def load_text(path: str) -> str:
+    with open(path, "r", encoding="utf-8") as f:
+        return f.read()
+
+
+def save_text(path: Path, content: str):
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with open(path, "w", encoding="utf-8") as f:
+        f.write(content)
+
+
+def clean_markdown(content: str) -> str:
+    """Удаляет всё между IGNORE_S и IGNORE_E (включая сами маркеры)"""
+    # non-greedy match (.*?), чтобы удалять каждый блок отдельно, если их много
+    pattern = re.compile(re.escape(IGNORE_START) + r".*?" + re.escape(IGNORE_END), re.DOTALL)
+    return pattern.sub("", content)
+
+
+def fix_relative_links(html_content: str) -> str:
+    """Превращает относительные ссылки в абсолютные, не трогая уже существующие глобальные"""
+
+    def replace(match):
+        attr = match.group(1)  # "href" или "src"
+        url = match.group(2)  # значение атрибута | исходная относительная ссылка
+
+        # пропустить уже абсолютные ссылки. ВАЖНО! может быть надо дополнить
+        if url.startswith(("http://", "https://", "//", "data:", "#", "mailto:")):
+            return match.group(0)  # группа 0 - полное исходное вхождение
+
+        if url.endswith((".png", ".jpg", ".jpeg", ".gif", ".svg", ".webp")):
+            new_url = f"{RAW_GITHUB_URL}{url}"
+        else:
+            new_url = f"{BASE_GITHUB_URL}{url}"
+
+        return f'{attr}="{new_url}"'
+
+    # Ловим и href="..." и src="...", в группу 2 извлекаем атрибут не выходя за кавычку "
+    pattern = r'(href|src)="([^"]*)"'
+    return re.sub(pattern, replace, html_content)
+
+
+def main():
+    print("Building site...")
+
+    readme_raw = load_text(README_FILE)
+    html_template = load_text(TEMPLATE_HTML)
+
+    readme_clean = clean_markdown(readme_raw)
+    # extensions=['tables', 'fenced_code'] включают поддержку таблиц и блоков кода ```
+    readme_html = markdown.markdown(readme_clean, extensions=["tables", "fenced_code"])
+    readme_html = fix_relative_links(readme_html)
+
+    final_html = html_template
+    final_html = final_html.replace(CONTENT_PLACEHOLDER, readme_html)
+    final_html = final_html.replace(TITLE_PLACEHOLDER, USERNAME)
+    final_html = final_html.replace(PROFILE_LINK_PLACEHOLDER, PROFILE_URL)
+    final_html = final_html.replace(REPO_LINK_PLACEHOLDER, REPO_URL)
+
+    save_text(OUTPUT_FILE, final_html)
+    print(f"✅ Site built successfully: {OUTPUT_FILE}")
+
+
+if __name__ == "__main__":
+    main()
