@@ -1,3 +1,4 @@
 ascii_magic==2.7.5
 pyfiglet==1.0.4
 requests==2.34.2
+markdown==3.10.2
