@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="ru" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><!-- TITLE_PLACEHOLDER --> | Profile</title>
+    <style>
+      /* =========================================
+           🎨 КОНФИГУРАЦИЯ ЦВЕТОВ (Меняй здесь!)
+           ========================================= */
+      :root {
+        /* Общие настройки */
+        --font-mono: "Courier New", Courier, monospace;
+        --transition-speed: 0.3s;
+      }
+
+      /* 💡 СВЕТЛАЯ ТЕМА (Стиль старого BIOS) */
+      [data-theme="light"] {
+        --bg-color: #c0c0c0; /* Серый фон страницы */
+        --term-header-bg: #0000aa; /* Синий заголовок окна */
+        --term-header-text: #ffffff; /* Белый текст заголовка */
+        --term-body-bg: #0000aa; /* Синий фон терминала */
+        --term-text-color: #aaaaaa; /* Светло-серый текст */
+        --term-shadow: 2px 2px 0px #000000; /* Жесткая тень под текстом */
+        --btn-bg: #dfdfdf; /* Фон кнопок */
+        --btn-border: solid #fff #000 #000 #fff; /* 3D рамка кнопок XP */
+        --link-color: #ffff55; /* Цвет ссылок в BIOS */
+      }
+
+      /* 🌙 ТЕМНАЯ ТЕМА (Современный хакерский терминал) */
+      [data-theme="dark"] {
+        --bg-color: #1a1a1a; /* Темно-серый фон страницы */
+        --term-header-bg: #2d2d2d; /* Заголовок окна */
+        --term-header-text: #cccccc; /* Текст заголовка */
+        --term-body-bg: #000000; /* Черный фон терминала */
+        --term-text-color: #ff3333; /* Красный текст */
+        --term-shadow: none; /* Нет тени */
+        --btn-bg: #333333; /* Фон кнопок */
+        --btn-border: 1px solid #444; /* Плоская рамка */
+        --link-color: #ff6666; /* Цвет ссылок */
+      }
+
+      /* =========================================
+           🛠️ БАЗОВЫЕ СТИЛИ
+           ========================================= */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        background-color: var(--bg-color);
+        font-family: var(--font-mono);
+        transition: background-color var(--transition-speed);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 40px 20px;
+      }
+
+      /* =========================================
+           🖥️ ОКНО ТЕРМИНАЛА (Windows XP Style)
+           ========================================= */
+      .terminal-window {
+        width: 100%;
+        max-width: 900px;
+        border: 2px solid #000;
+        box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
+        background: var(--term-body-bg);
+        transition: background-color var(--transition-speed);
+      }
+
+      .terminal-header {
+        background: var(--term-header-bg);
+        color: var(--term-header-text);
+        padding: 4px 8px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-weight: bold;
+        font-size: 14px;
+        user-select: none;
+        border-bottom: 2px solid #000;
+      }
+
+      .header-controls {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
+
+      /* Кнопки переключения и ссылки */
+      .icon-btn {
+        background: var(--btn-bg);
+        border: var(--btn-border);
+        color: inherit;
+        cursor: pointer;
+        padding: 2px 8px;
+        font-family: var(--font-mono);
+        font-size: 12px;
+        text-decoration: none;
+        line-height: 1.4;
+      }
+
+      [data-theme="dark"] .icon-btn {
+        color: #ff3333;
+      }
+      [data-theme="light"] .icon-btn {
+        color: #000;
+      }
+
+      .terminal-body {
+        padding: 20px;
+        color: var(--term-text-color);
+        text-shadow: var(--term-shadow);
+        overflow-x: auto;
+        line-height: 1.6;
+        transition:
+          color var(--transition-speed),
+          text-shadow var(--transition-speed);
+      }
+
+      /* Стили для контента внутри терминала */
+      .terminal-body a {
+        color: var(--link-color);
+        text-decoration: underline;
+      }
+      .terminal-body pre {
+        background: transparent;
+        padding: 0;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+      }
+      .terminal-body table {
+        border-collapse: collapse;
+        margin: 1rem 0;
+        width: 100%;
+      }
+      .terminal-body th,
+      .terminal-body td {
+        border: 1px solid currentColor;
+        padding: 6px 12px;
+        text-align: left;
+      }
+      .terminal-body img {
+        max-width: 100%;
+        height: auto;
+        image-rendering: pixelated;
+      }
+
+      /* Адаптив */
+      @media (max-width: 600px) {
+        body {
+          padding: 10px;
+        }
+        .terminal-body {
+          padding: 10px;
+          font-size: 14px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="terminal-window">
+      <div class="terminal-header">
+        <span>C:\Users\<!-- TITLE_PLACEHOLDER -->\profile.exe</span>
+        <div class="header-controls">
+          <button
+            id="theme-toggle"
+            class="icon-btn"
+            aria-label="Переключить тему"
+          >
+            ◑ Theme
+          </button>
+          <a
+            href="<!-- PROFILE_LINK_PLACEHOLDER -->"
+            target="_blank"
+            rel="noopener"
+            class="icon-btn"
+            >★ Profile</a
+          >
+          <a
+            href="<!-- REPO_LINK_PLACEHOLDER -->"
+            target="_blank"
+            rel="noopener"
+            class="icon-btn"
+            >🗁 Repo</a
+          >
+        </div>
+      </div>
+
+      <!-- Тело терминала: сюда вставляется контент из Markdown -->
+      <div class="terminal-body">
+        <!-- CONTENT_PLACEHOLDER -->
+      </div>
+    </div>
+
+    <script>
+      // Логика переключения темы с сохранением в localStorage
+      const toggleBtn = document.getElementById("theme-toggle");
+      const htmlEl = document.documentElement;
+      const STORAGE_KEY = "terminal-theme";
+
+      // 1. Проверяем сохраненную тему или системные настройки
+      function getInitialTheme() {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) return saved;
+        return window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? "dark"
+          : "light";
+      }
+
+      // 2. Применяем тему
+      function applyTheme(theme) {
+        htmlEl.setAttribute("data-theme", theme);
+        localStorage.setItem(STORAGE_KEY, theme);
+        toggleBtn.textContent = theme === "dark" ? "☀ Light" : "◑ Dark";
+      }
+
+      // Инициализация при загрузке
+      applyTheme(getInitialTheme());
+
+      // Обработчик клика
+      toggleBtn.addEventListener("click", () => {
+        const current = htmlEl.getAttribute("data-theme");
+        applyTheme(current === "dark" ? "light" : "dark");
+      });
+    </script>
+  </body>
+</html>
