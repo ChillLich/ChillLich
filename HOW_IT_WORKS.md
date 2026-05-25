@@ -81,11 +81,12 @@
 
 ## Как скопировать к себе
 
-1. Нажмите **Use this template** в GitHub
+1. Нажмите **Use this template** в GitHub. ВАЖНО - `Include all branches` обязательно включить!
 2. Назовите репозиторий **строго своим ником** (например, `ChillLich/ChillLich`)
-3. Настройте параметры в `scripts/generate_readme.py` в ветке `dev`
-4. Запустите workflow **Update Profile README** вручную (вкладка Actions) или дождитесь срабатывания по расписанию
-5. Включите GitHub Pages в настройках репозитория: **Settings → Pages → Source: Deploy from a branch → Branch: main → Folder: /docs**
+3. Настройте предпочтительные параметры в `scripts/generate_readme.py` в ветке `dev`.
+4. Заполните `template.md` по вкусу.
+5. Запустите workflow **Update Profile README** вручную (вкладка Actions) или дождитесь срабатывания по расписанию
+6. Включите GitHub Pages в настройках репозитория: **Settings → Pages → Source: Deploy from a branch → Branch: main → Folder: /docs**
 
 ## GitHub Actions Workflow
 
