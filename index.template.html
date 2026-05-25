@@ -2,7 +2,11 @@
 <html lang="ru" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      id="viewport"
+      content="width=device-width, initial-scale=1"
+    />
     <title><!-- TITLE_PLACEHOLDER --> | Profile</title>
     <link rel="icon" type="image/png" href="<!-- FAVICON_PLACEHOLDER -->" />
     <style>
@@ -316,6 +320,33 @@
         const current = htmlEl.getAttribute("data-theme");
         applyTheme(current === "dark" ? "light" : "dark");
       });
+      (function () {
+        var MAX_W = 900;
+        var MIN_SCALE = 0.4;
+        var vp = document.getElementById("viewport");
+
+        function applyScale() {
+          var w = window.innerWidth || document.documentElement.clientWidth;
+          var scale = w / MAX_W;
+
+          // Ограничиваем масштаб от 0.4 до 1.0
+          if (scale > 1) scale = 1;
+          if (scale < MIN_SCALE) scale = MIN_SCALE;
+
+          // Меняем мета-тег
+          vp.setAttribute(
+            "content",
+            "width=" + MAX_W + ", initial-scale=" + scale,
+          );
+        }
+
+        // Запуск после загрузки страницы
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", applyScale);
+        } else {
+          applyScale();
+        }
+      })();
     </script>
   </body>
 </html>
