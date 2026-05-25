@@ -10,11 +10,10 @@ from pathlib import Path
 import markdown
 from generate_readme import REPLACE_AVATAR_PLACEHOLDER
 
-README_FILE = "README.md"
+README_FILE = Path("README.md")
 TEMPLATE_HTML = "index.template.html"
 OUTPUT_DIR = Path("dist")
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-OUTPUT_FILE = OUTPUT_DIR / "docs" / "index.html"
 DOC_PATH = Path("HOW_IT_WORKS.md")
 
 # Всё что в README.md между заданными плейсхолдерами ишнорируется при сборке html
@@ -43,7 +42,7 @@ REPO_URL = f"https://github.com/{USER_REPO}/"
 FAVICON_URL = f"{RAW_GITHUB_URL}avatar_ascii.png"
 
 
-def load_text(path: str) -> str:
+def load_text(path: str | Path) -> str:
     with open(path, "r", encoding="utf-8") as f:
         return f.read()
 
@@ -98,7 +97,7 @@ def get_raw_ascii():
 def main():
     print("Building site...")
 
-    readme_raw = load_text(README_FILE)
+    readme_raw = load_text(OUTPUT_DIR / README_FILE)
     html_template = load_text(TEMPLATE_HTML)
 
     readme_clean = clean_markdown(readme_raw)
@@ -116,12 +115,13 @@ def main():
     final_html = final_html.replace(REPO_LINK_PLACEHOLDER, REPO_URL)
     final_html = final_html.replace(FAVICON_PLACEHOLDER, FAVICON_URL)
 
-    save_text(OUTPUT_FILE, final_html)
+    output_file = OUTPUT_DIR / "docs" / "index.html"
+    save_text(output_file, final_html)
 
     # т.к. ветка теперь dev пусть дока обновляется/складывается в main для доступности
     if DOC_PATH.exists():
         shutil.copy(DOC_PATH, OUTPUT_DIR / DOC_PATH)
-    print(f"✅ Site built for {USERNAME} successfully: {OUTPUT_FILE}")
+    print(f"✅ Site built for {USERNAME} successfully: {output_file}")
 
 
 if __name__ == "__main__":
