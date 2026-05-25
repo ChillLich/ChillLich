@@ -12,6 +12,8 @@ from generate_readme import REPLACE_AVATAR_PLACEHOLDER
 
 README_FILE = Path("README.md")
 TEMPLATE_HTML = "index.template.html"
+# OUTPUT_DIR папка для вывода. но еще этому скрипту после работы
+# scripts\generate_readme.py нужны некоторые файлы отсюда
 OUTPUT_DIR = Path("dist")
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 DOC_PATH = Path("HOW_IT_WORKS.md")
@@ -85,7 +87,7 @@ def fix_relative_links(html_content: str) -> str:
 
 def get_raw_ascii():
     try:
-        with open("ASCII_AVATAR.txt", "r", encoding="utf-8") as f:
+        with open(OUTPUT_DIR / "ASCII_AVATAR.txt", "r", encoding="utf-8") as f:
             content = f.read()
     except FileNotFoundError:
         content = ""
