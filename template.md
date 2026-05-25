@@ -1,7 +1,7 @@
 <!-- TERMINAL_PLACEHOLDER -->
 
 > [!TIP]
-> 💡 *Обновляется автоматически. [Как это работает?](how_it_works.md)*
+> 💡 *Обновляется автоматически. [Как это работает?](HOW_IT_WORKS.md)*
 
 **[Профиль GitHub.](https://github.com/ChillLich)**
 

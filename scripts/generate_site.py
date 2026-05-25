@@ -4,6 +4,7 @@
 import html
 import os
 import re
+import shutil
 from pathlib import Path
 
 import markdown
@@ -11,8 +12,10 @@ from generate_readme import REPLACE_AVATAR_PLACEHOLDER
 
 README_FILE = "README.md"
 TEMPLATE_HTML = "index.template.html"
-OUTPUT_DIR = Path("docs")
-OUTPUT_FILE = OUTPUT_DIR / "index.html"
+OUTPUT_DIR = Path("dist")
+OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+OUTPUT_FILE = OUTPUT_DIR / "docs" / "index.html"
+DOC_PATH = Path("HOW_IT_WORKS.md")
 
 # Всё что в README.md между заданными плейсхолдерами ишнорируется при сборке html
 IGNORE_START = "<!-- IGNORE_S -->"
@@ -28,8 +31,8 @@ REPO_LINK_PLACEHOLDER = "<!-- REPO_LINK_PLACEHOLDER -->"
 
 FAVICON_PLACEHOLDER = "<!-- FAVICON_PLACEHOLDER -->"
 
-
-USERNAME = os.getenv("GITHUB_REPOSITORY_OWNER", "ChillLich")
+FALLBACK_USERNAME = "ChillLich"
+USERNAME = os.getenv("GITHUB_REPOSITORY_OWNER", FALLBACK_USERNAME)
 FALLBACK_REPO_URL = "ChillLich/ChillLich"
 USER_REPO = os.getenv("GITHUB_REPOSITORY", FALLBACK_REPO_URL)
 BASE_GITHUB_URL = f"https://github.com/{USER_REPO}/blob/main/"
@@ -114,6 +117,10 @@ def main():
     final_html = final_html.replace(FAVICON_PLACEHOLDER, FAVICON_URL)
 
     save_text(OUTPUT_FILE, final_html)
+
+    # т.к. ветка теперь dev пусть дока обновляется/складывается в main для доступности
+    if DOC_PATH.exists():
+        shutil.copy(DOC_PATH, OUTPUT_DIR / DOC_PATH)
     print(f"✅ Site built for {USERNAME} successfully: {OUTPUT_FILE}")
 
 

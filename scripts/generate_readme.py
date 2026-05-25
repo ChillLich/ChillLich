@@ -3,6 +3,7 @@
 
 import os
 from datetime import datetime
+from pathlib import Path
 from random import choice
 
 import requests
@@ -10,6 +11,11 @@ from ascii_magic import AsciiArt
 from pyfiglet import Figlet
 
 FALLBACK_NAME = "ChillLich"
+PATH_OUTPUT = Path("dist")
+PATH_OUTPUT.mkdir(parents=True, exist_ok=True)
+PATH_TEXT = PATH_OUTPUT / "ASCII_AVATAR.txt"
+PATH_PNG = PATH_OUTPUT / "avatar_ascii.png"
+PATH_README = PATH_OUTPUT / "README.md"
 
 # случайно выбирает один изх них
 # Можно добавить: "3-d",  "speed", "tinker-toy"
@@ -40,9 +46,9 @@ def get_avatar_ascii(username: str, columns: int = 104) -> str:
     avatar_url = request.json()["avatar_url"]
 
     art = AsciiArt.from_url(avatar_url)
-    art.to_image_file("avatar_ascii.png", columns=columns)
+    art.to_image_file(PATH_PNG, columns=columns)
     ascii = art.to_ascii(columns=columns)
-    with open("ASCII_AVATAR.txt", "w", encoding="utf-8") as f:
+    with open(PATH_TEXT, "w", encoding="utf-8") as f:
         f.write(ascii)
     return ascii
 
@@ -92,7 +98,7 @@ def main():
 
     readme_content = content.replace("<!-- TERMINAL_PLACEHOLDER -->", terminal_block)
 
-    with open("README.md", "w", encoding="utf-8") as f:
+    with open(PATH_README, "w", encoding="utf-8") as f:
         f.write(readme_content)
 
     print(f"✅ README.md обновлён (шрифт: {FONT})")
