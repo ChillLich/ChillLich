@@ -123,6 +123,15 @@ def main():
     # т.к. ветка теперь dev пусть дока обновляется/складывается в main для доступности
     if DOC_PATH.exists():
         shutil.copy(DOC_PATH, OUTPUT_DIR / DOC_PATH)
+
+    github_src = Path(".github")
+    github_dst = OUTPUT_DIR / ".github"
+    if github_src.exists() and github_src.is_dir():
+        if github_dst.exists():
+            # полностью обновляем удаляя старое если есть (хоть на раннере не и будет)
+            shutil.rmtree(github_dst)
+        shutil.copytree(github_src, github_dst)
+
     print(f"✅ Site built for {USERNAME} successfully: {output_file}")
 
 
