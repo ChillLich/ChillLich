@@ -123,6 +123,9 @@ def main():
     # т.к. ветка теперь dev пусть дока обновляется/складывается в main для доступности
     if DOC_PATH.exists():
         shutil.copy(DOC_PATH, OUTPUT_DIR / DOC_PATH)
+        print(f"Copied {DOC_PATH}")
+    else:
+        raise FileNotFoundError(f"Critical file {DOC_PATH} not found in dev branch!")
 
     github_src = Path(".github")
     github_dst = OUTPUT_DIR / ".github"
@@ -131,6 +134,9 @@ def main():
             # полностью обновляем удаляя старое если есть (хоть на раннере не и будет)
             shutil.rmtree(github_dst)
         shutil.copytree(github_src, github_dst)
+        print(f"Copied {github_src}")
+    else:
+        raise FileNotFoundError(f"Critical directory {github_src} not found in dev branch!")
 
     print(f"✅ Site built for {USERNAME} successfully: {output_file}")
 
