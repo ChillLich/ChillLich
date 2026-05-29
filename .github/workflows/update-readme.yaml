@@ -49,4 +49,7 @@ jobs:
         with:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
-          message: README в профиле обновлён успешно!
+          message: |
+            ✅ README в профиле обновлён успешно!
+            📅 ${{ github.event_name }}
+            🔗 Run: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
