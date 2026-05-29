@@ -39,3 +39,17 @@ jobs:
           exclude_assets: ""
           user_name: "github-actions[bot]"
           user_email: "41898282+github-actions[bot]@users.noreply.github.com"
+
+  send_message:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Send message
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+            ✅ README в профиле обновлён успешно!
+            📅 ${{ github.event_name }}
+            🔗 Run: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
