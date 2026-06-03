@@ -8,7 +8,9 @@ import shutil
 from pathlib import Path
 
 import markdown
-from generate_readme import REPLACE_AVATAR_PLACEHOLDER
+from generate_readme import IGNORE_END, IGNORE_START, REPLACE_AVATAR_PLACEHOLDER
+
+# ===================== CONFIGURATION =====================
 
 README_FILE = Path("README.md")
 TEMPLATE_HTML = "index.template.html"
@@ -17,10 +19,6 @@ TEMPLATE_HTML = "index.template.html"
 OUTPUT_DIR = Path("dist")
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 DOC_PATH = Path("HOW_IT_WORKS.md")
-
-# Всё что в README.md между заданными плейсхолдерами ишнорируется при сборке html
-IGNORE_START = "<!-- IGNORE_S -->"
-IGNORE_END = "<!-- IGNORE_E -->"
 
 # по нему вставляется результат. обязательно должен присутствовать в TEMPLATE_HTML файле
 CONTENT_PLACEHOLDER = "<!-- CONTENT_PLACEHOLDER -->"
@@ -42,6 +40,8 @@ PROFILE_URL = f"https://github.com/{USERNAME}"
 REPO_URL = f"https://github.com/{USER_REPO}/"
 
 FAVICON_URL = f"{RAW_GITHUB_URL}avatar_ascii.png"
+
+# ===================== CONFIGURATION =====================
 
 
 def load_text(path: str | Path) -> str:

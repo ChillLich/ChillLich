@@ -2,7 +2,7 @@ name: Update Profile README
 
 on:
   schedule:
-    - cron: "38 2 * * *"
+    - cron: "1 21 * * *"
   workflow_dispatch:
   push:
     branches:
@@ -13,6 +13,8 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    env:
+      TZ: ${{ vars.TZ || 'UTC'}}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4

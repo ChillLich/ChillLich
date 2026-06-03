@@ -5,10 +5,13 @@ import os
 from datetime import datetime
 from pathlib import Path
 from random import choice
+from zoneinfo import ZoneInfo
 
 import requests
 from ascii_magic import AsciiArt
 from pyfiglet import Figlet
+
+# ===================== CONFIGURATION =====================
 
 FALLBACK_NAME = "ChillLich"
 PATH_OUTPUT = Path("dist")
@@ -38,6 +41,8 @@ IGNORE_END = "<!-- IGNORE_E -->"
 # Заменяется на ascii art
 REPLACE_AVATAR_PLACEHOLDER = "<!-- AVATAR_AS_RAW_ASCII -->"
 
+# ===================== CONFIGURATION =====================
+
 
 def get_avatar_ascii(username: str, columns: int = 104) -> str:
     """Получить ASCII строку - аватарку GitHub, использует API"""
@@ -65,7 +70,8 @@ def main():
     DATE_FONT = FONT
 
     name_ascii = make_ascii(username, NAME_FONT)
-    date_ascii = make_ascii(datetime.now().strftime("%d.%m.%Y"), DATE_FONT)
+    timezone = ZoneInfo(os.getenv("TZ", "UTC"))
+    date_ascii = make_ascii(datetime.now(timezone).strftime("%d.%m.%Y"), DATE_FONT)
 
     # output
     terminal_block = f">>> profile.name()\n{name_ascii}" "\n\n" f">>> date.today()\n{date_ascii}"

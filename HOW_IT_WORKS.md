@@ -10,7 +10,7 @@
 - Случайно выбирает шрифт из `LIST_OF_FONTS`
 - Генерирует:
   - **Имя** → `pyfiglet` ASCII-арт
-  - **Дату** → `pyfiglet` ASCII-арт  
+  - **Дату** → `pyfiglet` ASCII-арт (текущая дата с учётом переменной окружения `TZ`, по умолчанию UTC)  
   - **Аватар** → `ascii_magic` (PNG + raw ASCII)
 - Вставляет блок в `<!-- TERMINAL_PLACEHOLDER -->` файла `template.md`
 - Сохраняет результат в `README.md`
@@ -31,10 +31,7 @@
 Исходный код доступен в ветке `dev`.
 
 После успешного завершения отправляет сообщение в телеграм через бота.
-Для этого нужно задать секреты в репозитории.
-Settings -> Secrets and variables -> Repository secrets - > Add:
-`TELEGRAM_TO` - id аккаунта которому отсылать сообщение
-`TELEGRAM_TOKEN` - токен бота который будет отсылать сообщение.
+Для этого нужно задать секреты в репозитории. [Как их задать](#как-скопировать-к-себе)
 
 ## Конфигурация
 
@@ -93,6 +90,11 @@ Settings -> Secrets and variables -> Repository secrets - > Add:
 4. Заполните `template.md` по вкусу.
 5. Запустите workflow **Update Profile README** вручную (вкладка Actions) или дождитесь срабатывания по расписанию
 6. Включите GitHub Pages в настройках репозитория: **Settings → Pages → Source: Deploy from a branch → Branch: main → Folder: /docs**
+7. Settings -> Secrets and variables -> Repository secrets - > Add:
+    - `TELEGRAM_TO` - id аккаунта которому отсылать сообщение
+    - `TELEGRAM_TOKEN` - токен бота который будет отсылать сообщение.
+8. Задайте переменную окружения `TZ` Settings -> Secrets and variables -> variables(вкладка) -> Repository variables -> Add, она отвечает за часовой пояс для отображаемой даты, а так же передается в cron планировщик Github (чтобы не пересчитывать его в UTC). Задавать нужно в формате IANA. Например: `Europe/Moscow`. По-умолчанию `UTC`.
+9. Если хотите изменить время обновления. В файле `.github\workflows\update-readme.yaml` измените строку `cron: "1 0 * * *"`. Если у вас задана `TZ`, на cron она не влияет и он всё еще в UTC. Имейте ввиду - у Github большие очереди на запуск Actions и cron может сработать сильно позднее заданного.
 
 ## GitHub Actions Workflow
 
