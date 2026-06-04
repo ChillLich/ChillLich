@@ -1,19 +1,21 @@
 ```
 >>> profile.name()
- _____  _   _ _____ _      _      _     _____ _____  _   _ 
-/  __ \| | | |_   _| |    | |    | |   |_   _/  __ \| | | |
-| /  \/| |_| | | | | |    | |    | |     | | | /  \/| |_| |
-| |    |  _  | | | | |    | |    | |     | | | |    |  _  |
-| \__/\| | | |_| |_| |____| |____| |_____| |_| \__/\| | | |
- \____/\_| |_/\___/\_____/\_____/\_____/\___/ \____/\_| |_/
+ ____     __  __  ______   __       __       __     ______   ____     __  __     
+/\  _`\  /\ \/\ \/\__  _\ /\ \     /\ \     /\ \   /\__  _\ /\  _`\  /\ \/\ \    
+\ \ \/\_\\ \ \_\ \/_/\ \/ \ \ \    \ \ \    \ \ \  \/_/\ \/ \ \ \/\_\\ \ \_\ \   
+ \ \ \/_/_\ \  _  \ \ \ \  \ \ \  __\ \ \  __\ \ \  __\ \ \  \ \ \/_/_\ \  _  \  
+  \ \ \L\ \\ \ \ \ \ \_\ \__\ \ \L\ \\ \ \L\ \\ \ \L\ \\_\ \__\ \ \L\ \\ \ \ \ \ 
+   \ \____/ \ \_\ \_\/\_____\\ \____/ \ \____/ \ \____//\_____\\ \____/ \ \_\ \_\
+    \/___/   \/_/\/_/\/_____/ \/___/   \/___/   \/___/ \/_____/ \/___/   \/_/\/_/
 
 >>> date.today()
- _____ _____  _____  ____   _____  _____  _____   ____ 
-|  _  |  ___||  _  |/ ___| / __  \|  _  |/ __  \ / ___|
-| |/' |___ \ | |/' / /___  `' / /'| |/' |`' / /'/ /___ 
-|  /| |   \ \|  /| | ___ \   / /  |  /| |  / /  | ___ \
-\ |_/ /\__/ /\ |_/ / \_/ |_./ /___\ |_/ /./ /___| \_/ |
- \___/\____(_)\___/\_____(_)_____/ \___/ \_____/\_____/
+   __   ______        __     ____        ___       __      ___      ____    
+ /'__`\/\  ___\     /'__`\  /'___\     /'___`\   /'__`\  /'___`\   /'___\   
+/\ \/\ \ \ \__/    /\ \/\ \/\ \__/    /\_\ /\ \ /\ \/\ \/\_\ /\ \ /\ \__/   
+\ \ \ \ \ \___``\  \ \ \ \ \ \  _``\  \/_/// /__\ \ \ \ \/_/// /__\ \  _``\ 
+ \ \ \_\ \/\ \L\ \__\ \ \_\ \ \ \L\ \__  // /_\ \\ \ \_\ \ // /_\ \\ \ \L\ \
+  \ \____/\ \____/\_\\ \____/\ \____/\_\/\______/ \ \____//\______/ \ \____/
+   \/___/  \/___/\/_/ \/___/  \/___/\/_/\/_____/   \/___/ \/_____/   \/___/
 
 >>> profile.avatar()
 ```
@@ -28,16 +30,16 @@
 
 ---
 
-## Projects
+## Проекты
 
-| Проект | Описание (Что сделали) | Ключевое достижение / Результат | Стек технологий |
+| Проект | Описание | Ключевое достижение / Результат | Стек технологий |
 | :--- | :--- | :--- | :--- |
-| **[Blog REST API](https://github.com/ChillLich/blog_api)** | **Спроектировал REST API** социальной сети с полным CRUD для постов, групп и подписок. Реализовал систему комментариев и работу с медиафайлами. | **Обеспечил безопасность и производительность:** JWT-аутентификация с refresh-токенами, оптимизированные Many-to-Many связи, строгая ролевая модель (RBAC). | `Python`, `Django`, `DRF`, `SimpleJWT`, `OpenAPI` |
-| **[Artwork Scoreboard API](https://github.com/ChillLich/api_artwork_scoreboard)** | **Разработал бэкенд платформы** для агрегации оценок произведений искусства. Реализовал алгоритмы расчета рейтингов и механизм массового импорта данных. | **Автоматизировал обработку данных:** Алгоритмы расчета агрегированных рейтингов, оптимизированный импорт из CSV, гибкая ролевая модель (User/Moderator/Admin). | `Python`, `Django`, `DRF`, `PyJWT`, `CSV Import` |
-| **[QA & Testing](https://github.com/ChillLich/Django-testing)** | **Покрыл критические бизнес-сценарии** комплексом тестов для двух проектов (News/Comments и Notes). Реализовал тестирование маршрутов, контента и бизнес-логики. | **Достиг высокого покрытия тестами:** Тесты CRUD-операций, модерации, пагинации, уникальности slug. Использование моков и фикстур для изоляции окружения. | `Python`, `pytest`, `unittest`, `pytest-django` |
-| **[Diary Platform](https://github.com/ChillLich/diary)** | **Разработал блог-платформу** с системой публикаций, категорий и комментариев. Реализовал отложенные посты и кастомные страницы ошибок (403, 404, 500). | **Оптимизировал производительность БД:** Миксины (`ListPostsMixin`, `PostOwnerCheckMixin`), сокращение SQL-запросов через `select_related` и `annotate`, разделение прав. | `Python`, `Django`, `PostgreSQL`, `Bootstrap5`, `CBV` |
-| **[Meteo&Tails Bot](https://github.com/ChillLich/Meteo-Tails-Bot)** | **Реализовал Telegram-бота** с персонализированными уведомлениями о погоде. Настроил интеграцию с внешними API и учет часовых поясов пользователей. | **Обеспечил персонализацию UX:** Интеграция с OpenWeatherMap API, автоматический учет геолокации через GeoNames, гибкое логирование, конфигурация через `.env`. | `Python`, `Telegram API`, `OpenWeatherMap`, `GeoNames`, `APScheduler` |
-| **[Pomodoro Timer](https://github.com/ChillLich/pomodoro-timer)** <br> <br>**[GitHub Pages](https://chilllich.github.io/pomodoro-timer/)** | **Создал десктопное приложение** для тайм-менеджмента с автоматической настройкой окружения. Реализовал глубокую интеграцию с ОС через управление медиаплеером. | **Достиг глубокой интеграции с ОС:** Отправка media-key событий (Play/Pause) через `keyboard`, режим «всегда сверху», автосохранение настроек в JSON, пресеты таймера. | `Python`, `Tkinter`, `pygame`, `keyboard`, `JSON` |
-| **[Kittygram CI/CD](https://github.com/ChillLich/kittygram_cicd)** | **Выстроил production-ready CI/CD** для full-stack приложения. Автоматизировал полный цикл: линтинг → тесты → сборка образов → SSH-деплой на VPS. | **Автоматизировал деплой на 100%:** Пайплайн GitHub Actions с уведомлениями в Telegram, контейнеризация 4 сервисов, персистентное хранение данных, zero-downtime обновления. | `Docker`, `Docker Compose`, `GitHub Actions`, `Nginx`, `CI/CD`, `Django`, `PostgreSQL` |
+| **[Blog REST API](https://github.com/ChillLich/blog_api)** | **Спроектировал REST API** социальной сети с полным CRUD для постов, групп и подписок. Реализовал систему комментариев и работу с медиафайлами. | **Обеспечил безопасность и целостность данных:** настроил [объектные права](https://github.com/ChillLich/blog_api/blob/main/blog_api/api/views.py) доступа (Object-level permissions) для 4 моделей, реализовал безопасную загрузку медиафайлов и JWT-аутентификацию с ротацией refresh-токенов. Оптимизировал сложные связи Many-to-Many (подписки, группы). Реализовал пагинацию и OpenAPI-документацию. | `Python`, `Django`, `DRF`, `PostgreSQL`, `SimpleJWT`, `OpenAPI` |
+| **[Artwork Scoreboard API](https://github.com/ChillLich/api_artwork_scoreboard)** | **Разработал бэкенд платформы** для агрегации оценок произведений искусства. Реализовал алгоритмы расчета рейтингов и механизм массового импорта данных. | **Реализовал production-ready API:** кастомная passwordless-аутентификация через email с `TimestampSigner` ([views.py](https://github.com/ChillLich/api_artwork_scoreboard/blob/main/api_artwork_scoreboard/api/views.py)), трёхуровневая система permissions ([permissions.py](https://github.com/ChillLich/api_artwork_scoreboard/blob/main/api_artwork_scoreboard/api/permissions.py)), разделение Read/Write сериализаторов, динамический расчет рейтингов через `annotate` и продвинутая фильтрация по связанным моделям (`genre__slug`). Массовый импорт CSV через management-команду. | `Python`, `Django`, `DRF`, `PostgreSQL`, `pytest` |
+| **[QA & Testing](https://github.com/ChillLich/Django-testing)** | **Покрыл критические бизнес-сценарии** комплексом тестов для двух проектов. Реализовал тестирование маршрутов, контента и бизнес-логики. | **38+ тестов** ([pytest: 23](https://github.com/ChillLich/Django-testing/tree/main/PyTest-Project/news/tests), [unittest: 16](https://github.com/ChillLich/Django-testing/tree/main/UnitTest-Project/notes/tests)) с 100% покрытием ключевых endpoints. Тесты CRUD, модерации, пагинации, уникальности slug. Моки и фикстуры для изоляции. | `Python`, `pytest`, `pytest-django`, `unittest`, `CI/CD` |
+| **[Diary Platform](https://github.com/ChillLich/diary)** | **Разработал блог-платформу** с системой публикаций, категорий и комментариев. Реализовал отложенные посты и кастомные страницы ошибок. | **3 приложения** ([blog](https://github.com/ChillLich/diary/tree/main/blogdiary/blog), [pages](https://github.com/ChillLich/diary/tree/main/blogdiary/pages), [core](https://github.com/ChillLich/diary/tree/main/blogdiary/core)), [3 кастомных миксина](https://github.com/ChillLich/diary/blob/main/blogdiary/blog/views.py) (`ListPostsMixin`, `PostOwnerCheckMixin`, `CommentMixin`), оптимизация через `select_related`/`annotate`,  планирование публикаций (publish_at), кастомные ошибки (403, 404, 500). | `Python`, `Django`, `PostgreSQL`, `Bootstrap 5`, `pytest` |
+| **[Meteo&Tails Bot](https://github.com/ChillLich/Meteo-Tails-Bot)** | **Реализовал Telegram-бота** с персонализированными уведомлениями о погоде. Настроил интеграцию с внешними API и учет часовых поясов. | **8 [команд](https://github.com/ChillLich/Meteo-Tails-Bot/blob/main/main.py#L41)** (/today, /town, /time, /toggle), автоматическое определение часового пояса через GeoNames, учет летнего времени (DST), 3 канала логирования (Telegram, файл, консоль). | `Python`, `python-telegram-bot`, `APScheduler`, `Requests` |
+| **[Pomodoro Timer](https://github.com/ChillLich/pomodoro-timer)** <br> <br>**[GitHub Pages](https://chilllich.github.io/pomodoro-timer/)** | **Создал десктопное приложение** для тайм-менеджмента. Реализовал глубокую интеграцию с ОС через управление системным медиаплеером. | **4 готовых [пресета](https://github.com/ChillLich/pomodoro-timer/blob/main/TIMER.py#L74) таймера** и гибкая конфигурация кастомного, 4 [фазы](https://github.com/ChillLich/pomodoro-timer/blob/main/TIMER.py#L7) (Focus, short rest, long rest, pause), отправка media-key системных событий, 7+ тем интерфейса и полная кастомизация пользовательских, автосохранение в JSON [config.py](https://github.com/ChillLich/pomodoro-timer/blob/main/config.py). | `Python`, `Tkinter`, `Pygame`, `Keyboard` |
+| **[Kittygram CI/CD](https://github.com/ChillLich/kittygram_cicd)** | **Реализовал контейнеризацию и оркестрацию** существующего full-stack приложения: написал Dockerfile для каждого сервиса, сконфигурировал Django/Nginx/PostgreSQL и связал их в единую мультиконтейнерную инфраструктуру с автоматическим деплоем. | **Выстроил production-ready инфраструктуру:** 4 сервиса ([docker-compose.yml](https://github.com/ChillLich/kittygram_cicd/blob/main/docker-compose.yml)), 3 persistent volume, **5 этапов пайплайна** ([.github/workflows](https://github.com/ChillLich/kittygram_cicd/tree/main/.github/workflows)): lint → test → build → SSH-deploy → Telegram-notify. Настроил Nginx reverse proxy и персистентное хранение данных. | `Docker`, `Docker Compose`, `GitHub Actions`, `Nginx`, `CI/CD`, `SSH` |
 
 ---

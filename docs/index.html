@@ -282,20 +282,22 @@
 
       <div class="terminal-body">
         <pre><code>&gt;&gt;&gt; profile.name()
- _____  _   _ _____ _      _      _     _____ _____  _   _ 
-/  __ \| | | |_   _| |    | |    | |   |_   _/  __ \| | | |
-| /  \/| |_| | | | | |    | |    | |     | | | /  \/| |_| |
-| |    |  _  | | | | |    | |    | |     | | | |    |  _  |
-| \__/\| | | |_| |_| |____| |____| |_____| |_| \__/\| | | |
- \____/\_| |_/\___/\_____/\_____/\_____/\___/ \____/\_| |_/
+ ____     __  __  ______   __       __       __     ______   ____     __  __     
+/\  _`\  /\ \/\ \/\__  _\ /\ \     /\ \     /\ \   /\__  _\ /\  _`\  /\ \/\ \    
+\ \ \/\_\\ \ \_\ \/_/\ \/ \ \ \    \ \ \    \ \ \  \/_/\ \/ \ \ \/\_\\ \ \_\ \   
+ \ \ \/_/_\ \  _  \ \ \ \  \ \ \  __\ \ \  __\ \ \  __\ \ \  \ \ \/_/_\ \  _  \  
+  \ \ \L\ \\ \ \ \ \ \_\ \__\ \ \L\ \\ \ \L\ \\ \ \L\ \\_\ \__\ \ \L\ \\ \ \ \ \ 
+   \ \____/ \ \_\ \_\/\_____\\ \____/ \ \____/ \ \____//\_____\\ \____/ \ \_\ \_\
+    \/___/   \/_/\/_/\/_____/ \/___/   \/___/   \/___/ \/_____/ \/___/   \/_/\/_/
 
 &gt;&gt;&gt; date.today()
- _____ _____  _____  ____   _____  _____  _____   ____ 
-|  _  |  ___||  _  |/ ___| / __  \|  _  |/ __  \ / ___|
-| |/' |___ \ | |/' / /___  `' / /'| |/' |`' / /'/ /___ 
-|  /| |   \ \|  /| | ___ \   / /  |  /| |  / /  | ___ \
-\ |_/ /\__/ /\ |_/ / \_/ |_./ /___\ |_/ /./ /___| \_/ |
- \___/\____(_)\___/\_____(_)_____/ \___/ \_____/\_____/
+   __   ______        __     ____        ___       __      ___      ____    
+ /'__`\/\  ___\     /'__`\  /'___\     /'___`\   /'__`\  /'___`\   /'___\   
+/\ \/\ \ \ \__/    /\ \/\ \/\ \__/    /\_\ /\ \ /\ \/\ \/\_\ /\ \ /\ \__/   
+\ \ \ \ \ \___``\  \ \ \ \ \ \  _``\  \/_/// /__\ \ \ \ \/_/// /__\ \  _``\ 
+ \ \ \_\ \/\ \L\ \__\ \ \_\ \ \ \L\ \__  // /_\ \\ \ \_\ \ // /_\ \\ \ \L\ \
+  \ \____/\ \____/\_\\ \____/\ \____/\_\/\______/ \ \____//\______/ \ \____/
+   \/___/  \/___/\/_/ \/___/  \/___/\/_/\/_____/   \/___/ \/_____/   \/___/
 
 &gt;&gt;&gt; profile.avatar()
 </code></pre>
@@ -357,12 +359,12 @@
 <p><strong><a href="https://github.com/ChillLich">Профиль GitHub.</a></strong></p>
 <p><strong><a href="https://chilllich.github.io/ChillLich/">GitHub Pages website.</a></strong></p>
 <hr />
-<h2>Projects</h2>
+<h2>Проекты</h2>
 <table>
 <thead>
 <tr>
 <th style="text-align: left;">Проект</th>
-<th style="text-align: left;">Описание (Что сделали)</th>
+<th style="text-align: left;">Описание</th>
 <th style="text-align: left;">Ключевое достижение / Результат</th>
 <th style="text-align: left;">Стек технологий</th>
 </tr>
@@ -371,44 +373,44 @@
 <tr>
 <td style="text-align: left;"><strong><a href="https://github.com/ChillLich/blog_api">Blog REST API</a></strong></td>
 <td style="text-align: left;"><strong>Спроектировал REST API</strong> социальной сети с полным CRUD для постов, групп и подписок. Реализовал систему комментариев и работу с медиафайлами.</td>
-<td style="text-align: left;"><strong>Обеспечил безопасность и производительность:</strong> JWT-аутентификация с refresh-токенами, оптимизированные Many-to-Many связи, строгая ролевая модель (RBAC).</td>
-<td style="text-align: left;"><code>Python</code>, <code>Django</code>, <code>DRF</code>, <code>SimpleJWT</code>, <code>OpenAPI</code></td>
+<td style="text-align: left;"><strong>Обеспечил безопасность и целостность данных:</strong> настроил <a href="https://github.com/ChillLich/blog_api/blob/main/blog_api/api/views.py">объектные права</a> доступа (Object-level permissions) для 4 моделей, реализовал безопасную загрузку медиафайлов и JWT-аутентификацию с ротацией refresh-токенов. Оптимизировал сложные связи Many-to-Many (подписки, группы). Реализовал пагинацию и OpenAPI-документацию.</td>
+<td style="text-align: left;"><code>Python</code>, <code>Django</code>, <code>DRF</code>, <code>PostgreSQL</code>, <code>SimpleJWT</code>, <code>OpenAPI</code></td>
 </tr>
 <tr>
 <td style="text-align: left;"><strong><a href="https://github.com/ChillLich/api_artwork_scoreboard">Artwork Scoreboard API</a></strong></td>
 <td style="text-align: left;"><strong>Разработал бэкенд платформы</strong> для агрегации оценок произведений искусства. Реализовал алгоритмы расчета рейтингов и механизм массового импорта данных.</td>
-<td style="text-align: left;"><strong>Автоматизировал обработку данных:</strong> Алгоритмы расчета агрегированных рейтингов, оптимизированный импорт из CSV, гибкая ролевая модель (User/Moderator/Admin).</td>
-<td style="text-align: left;"><code>Python</code>, <code>Django</code>, <code>DRF</code>, <code>PyJWT</code>, <code>CSV Import</code></td>
+<td style="text-align: left;"><strong>Реализовал production-ready API:</strong> кастомная passwordless-аутентификация через email с <code>TimestampSigner</code> (<a href="https://github.com/ChillLich/api_artwork_scoreboard/blob/main/api_artwork_scoreboard/api/views.py">views.py</a>), трёхуровневая система permissions (<a href="https://github.com/ChillLich/api_artwork_scoreboard/blob/main/api_artwork_scoreboard/api/permissions.py">permissions.py</a>), разделение Read/Write сериализаторов, динамический расчет рейтингов через <code>annotate</code> и продвинутая фильтрация по связанным моделям (<code>genre__slug</code>). Массовый импорт CSV через management-команду.</td>
+<td style="text-align: left;"><code>Python</code>, <code>Django</code>, <code>DRF</code>, <code>PostgreSQL</code>, <code>pytest</code></td>
 </tr>
 <tr>
 <td style="text-align: left;"><strong><a href="https://github.com/ChillLich/Django-testing">QA &amp; Testing</a></strong></td>
-<td style="text-align: left;"><strong>Покрыл критические бизнес-сценарии</strong> комплексом тестов для двух проектов (News/Comments и Notes). Реализовал тестирование маршрутов, контента и бизнес-логики.</td>
-<td style="text-align: left;"><strong>Достиг высокого покрытия тестами:</strong> Тесты CRUD-операций, модерации, пагинации, уникальности slug. Использование моков и фикстур для изоляции окружения.</td>
-<td style="text-align: left;"><code>Python</code>, <code>pytest</code>, <code>unittest</code>, <code>pytest-django</code></td>
+<td style="text-align: left;"><strong>Покрыл критические бизнес-сценарии</strong> комплексом тестов для двух проектов. Реализовал тестирование маршрутов, контента и бизнес-логики.</td>
+<td style="text-align: left;"><strong>38+ тестов</strong> (<a href="https://github.com/ChillLich/Django-testing/tree/main/PyTest-Project/news/tests">pytest: 23</a>, <a href="https://github.com/ChillLich/Django-testing/tree/main/UnitTest-Project/notes/tests">unittest: 16</a>) с 100% покрытием ключевых endpoints. Тесты CRUD, модерации, пагинации, уникальности slug. Моки и фикстуры для изоляции.</td>
+<td style="text-align: left;"><code>Python</code>, <code>pytest</code>, <code>pytest-django</code>, <code>unittest</code>, <code>CI/CD</code></td>
 </tr>
 <tr>
 <td style="text-align: left;"><strong><a href="https://github.com/ChillLich/diary">Diary Platform</a></strong></td>
-<td style="text-align: left;"><strong>Разработал блог-платформу</strong> с системой публикаций, категорий и комментариев. Реализовал отложенные посты и кастомные страницы ошибок (403, 404, 500).</td>
-<td style="text-align: left;"><strong>Оптимизировал производительность БД:</strong> Миксины (<code>ListPostsMixin</code>, <code>PostOwnerCheckMixin</code>), сокращение SQL-запросов через <code>select_related</code> и <code>annotate</code>, разделение прав.</td>
-<td style="text-align: left;"><code>Python</code>, <code>Django</code>, <code>PostgreSQL</code>, <code>Bootstrap5</code>, <code>CBV</code></td>
+<td style="text-align: left;"><strong>Разработал блог-платформу</strong> с системой публикаций, категорий и комментариев. Реализовал отложенные посты и кастомные страницы ошибок.</td>
+<td style="text-align: left;"><strong>3 приложения</strong> (<a href="https://github.com/ChillLich/diary/tree/main/blogdiary/blog">blog</a>, <a href="https://github.com/ChillLich/diary/tree/main/blogdiary/pages">pages</a>, <a href="https://github.com/ChillLich/diary/tree/main/blogdiary/core">core</a>), <a href="https://github.com/ChillLich/diary/blob/main/blogdiary/blog/views.py">3 кастомных миксина</a> (<code>ListPostsMixin</code>, <code>PostOwnerCheckMixin</code>, <code>CommentMixin</code>), оптимизация через <code>select_related</code>/<code>annotate</code>,  планирование публикаций (publish_at), кастомные ошибки (403, 404, 500).</td>
+<td style="text-align: left;"><code>Python</code>, <code>Django</code>, <code>PostgreSQL</code>, <code>Bootstrap 5</code>, <code>pytest</code></td>
 </tr>
 <tr>
 <td style="text-align: left;"><strong><a href="https://github.com/ChillLich/Meteo-Tails-Bot">Meteo&amp;Tails Bot</a></strong></td>
-<td style="text-align: left;"><strong>Реализовал Telegram-бота</strong> с персонализированными уведомлениями о погоде. Настроил интеграцию с внешними API и учет часовых поясов пользователей.</td>
-<td style="text-align: left;"><strong>Обеспечил персонализацию UX:</strong> Интеграция с OpenWeatherMap API, автоматический учет геолокации через GeoNames, гибкое логирование, конфигурация через <code>.env</code>.</td>
-<td style="text-align: left;"><code>Python</code>, <code>Telegram API</code>, <code>OpenWeatherMap</code>, <code>GeoNames</code>, <code>APScheduler</code></td>
+<td style="text-align: left;"><strong>Реализовал Telegram-бота</strong> с персонализированными уведомлениями о погоде. Настроил интеграцию с внешними API и учет часовых поясов.</td>
+<td style="text-align: left;"><strong>8 <a href="https://github.com/ChillLich/Meteo-Tails-Bot/blob/main/main.py#L41">команд</a></strong> (/today, /town, /time, /toggle), автоматическое определение часового пояса через GeoNames, учет летнего времени (DST), 3 канала логирования (Telegram, файл, консоль).</td>
+<td style="text-align: left;"><code>Python</code>, <code>python-telegram-bot</code>, <code>APScheduler</code>, <code>Requests</code></td>
 </tr>
 <tr>
 <td style="text-align: left;"><strong><a href="https://github.com/ChillLich/pomodoro-timer">Pomodoro Timer</a></strong> <br> <br><strong><a href="https://chilllich.github.io/pomodoro-timer/">GitHub Pages</a></strong></td>
-<td style="text-align: left;"><strong>Создал десктопное приложение</strong> для тайм-менеджмента с автоматической настройкой окружения. Реализовал глубокую интеграцию с ОС через управление медиаплеером.</td>
-<td style="text-align: left;"><strong>Достиг глубокой интеграции с ОС:</strong> Отправка media-key событий (Play/Pause) через <code>keyboard</code>, режим «всегда сверху», автосохранение настроек в JSON, пресеты таймера.</td>
-<td style="text-align: left;"><code>Python</code>, <code>Tkinter</code>, <code>pygame</code>, <code>keyboard</code>, <code>JSON</code></td>
+<td style="text-align: left;"><strong>Создал десктопное приложение</strong> для тайм-менеджмента. Реализовал глубокую интеграцию с ОС через управление системным медиаплеером.</td>
+<td style="text-align: left;"><strong>4 готовых <a href="https://github.com/ChillLich/pomodoro-timer/blob/main/TIMER.py#L74">пресета</a> таймера</strong> и гибкая конфигурация кастомного, 4 <a href="https://github.com/ChillLich/pomodoro-timer/blob/main/TIMER.py#L7">фазы</a> (Focus, short rest, long rest, pause), отправка media-key системных событий, 7+ тем интерфейса и полная кастомизация пользовательских, автосохранение в JSON <a href="https://github.com/ChillLich/pomodoro-timer/blob/main/config.py">config.py</a>.</td>
+<td style="text-align: left;"><code>Python</code>, <code>Tkinter</code>, <code>Pygame</code>, <code>Keyboard</code></td>
 </tr>
 <tr>
 <td style="text-align: left;"><strong><a href="https://github.com/ChillLich/kittygram_cicd">Kittygram CI/CD</a></strong></td>
-<td style="text-align: left;"><strong>Выстроил production-ready CI/CD</strong> для full-stack приложения. Автоматизировал полный цикл: линтинг → тесты → сборка образов → SSH-деплой на VPS.</td>
-<td style="text-align: left;"><strong>Автоматизировал деплой на 100%:</strong> Пайплайн GitHub Actions с уведомлениями в Telegram, контейнеризация 4 сервисов, персистентное хранение данных, zero-downtime обновления.</td>
-<td style="text-align: left;"><code>Docker</code>, <code>Docker Compose</code>, <code>GitHub Actions</code>, <code>Nginx</code>, <code>CI/CD</code>, <code>Django</code>, <code>PostgreSQL</code></td>
+<td style="text-align: left;"><strong>Реализовал контейнеризацию и оркестрацию</strong> существующего full-stack приложения: написал Dockerfile для каждого сервиса, сконфигурировал Django/Nginx/PostgreSQL и связал их в единую мультиконтейнерную инфраструктуру с автоматическим деплоем.</td>
+<td style="text-align: left;"><strong>Выстроил production-ready инфраструктуру:</strong> 4 сервиса (<a href="https://github.com/ChillLich/kittygram_cicd/blob/main/docker-compose.yml">docker-compose.yml</a>), 3 persistent volume, <strong>5 этапов пайплайна</strong> (<a href="https://github.com/ChillLich/kittygram_cicd/tree/main/.github/workflows">.github/workflows</a>): lint → test → build → SSH-deploy → Telegram-notify. Настроил Nginx reverse proxy и персистентное хранение данных.</td>
+<td style="text-align: left;"><code>Docker</code>, <code>Docker Compose</code>, <code>GitHub Actions</code>, <code>Nginx</code>, <code>CI/CD</code>, <code>SSH</code></td>
 </tr>
 </tbody>
 </table>
