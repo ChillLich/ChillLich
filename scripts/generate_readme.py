@@ -46,7 +46,10 @@ REPLACE_AVATAR_PLACEHOLDER = "<!-- AVATAR_AS_RAW_ASCII -->"
 
 def get_avatar_ascii(username: str, columns: int = 104) -> str:
     """Получить ASCII строку - аватарку GitHub, использует API"""
-    request = requests.get(f"https://api.github.com/users/{username}")
+    token = os.getenv("GITHUB_TOKEN")
+    headers = {"Authorization": f"Bearer {token}"} if token else {}
+
+    request = requests.get(f"https://api.github.com/users/{username}", headers=headers)
     request.raise_for_status()
     avatar_url = request.json()["avatar_url"]
 

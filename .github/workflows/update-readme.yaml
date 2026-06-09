@@ -30,6 +30,8 @@ jobs:
         run: python scripts/generate_readme.py
       - name: Build pages site
         run: python scripts/generate_site.py
+        env: 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Deploy to main branch
         uses: peaceiris/actions-gh-pages@v4
         with:
