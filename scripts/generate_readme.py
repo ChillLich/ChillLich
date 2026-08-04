@@ -33,6 +33,7 @@ ADD_AVATAR = True  # Показывать ли аватар?
 AS_RAW_ASCII_README = False
 # Если True то создает плейсхолдеры чтоб на сайте была не картинка а raw ascii
 REPLACE_AVATAR = True
+DEL_README_AVATAR = True  # Удаление аватара из Redme Github, но оставить на сайте
 AS_IMAGE_WIDTH = 300  # ширина PNG не рекомендуется более 890
 
 # Всё что в README.md между заданными плейсхолдерами ишнорируется при сборке html
@@ -84,6 +85,12 @@ def main():
             f'<img src="avatar_ascii.png" width="{AS_IMAGE_WIDTH}" alt="ASCII Avatar" />'
         )
         avatar_ascii = get_avatar_ascii(username, COLUMNS)
+    else:
+        ascii_art_as_image = ""
+        avatar_ascii = ""
+
+    # Добавляем аватар в блок кода только если он нужен в README
+    if ADD_AVATAR and not DEL_README_AVATAR:
         if AS_RAW_ASCII_README:
             terminal_block += "\n\n" + f">>> profile.avatar()\n\n{avatar_ascii}"
         else:
@@ -91,13 +98,19 @@ def main():
 
     terminal_block = f"```\n{terminal_block}\n```"
 
+    # Добавляем изображение (или плейсхолдер для сайта) после блока кода
     if ADD_AVATAR and not AS_RAW_ASCII_README:
-        terminal_block += (
-            "\n"
-            + f"{IGNORE_START if REPLACE_AVATAR else ''}"
-            + ascii_art_as_image
-            + f"{IGNORE_END + REPLACE_AVATAR_PLACEHOLDER if REPLACE_AVATAR else ''}"
-        )
+        if DEL_README_AVATAR:
+            # Если аватар скрыт из README, вставляем только плейсхолдер для сайта
+            if REPLACE_AVATAR:
+                terminal_block += "\n" + REPLACE_AVATAR_PLACEHOLDER
+        else:
+            terminal_block += (
+                "\n"
+                + f"{IGNORE_START if REPLACE_AVATAR else ''}"
+                + ascii_art_as_image
+                + f"{IGNORE_END + REPLACE_AVATAR_PLACEHOLDER if REPLACE_AVATAR else ''}"
+            )
 
     try:
         with open("template.md", "r", encoding="utf-8") as f:
