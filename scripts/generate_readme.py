@@ -34,6 +34,8 @@ AS_RAW_ASCII_README = False
 # Если True то создает плейсхолдеры чтоб на сайте была не картинка а raw ascii
 REPLACE_AVATAR = True
 DEL_README_AVATAR = True  # Удаление аватара из Redme Github, но оставить на сайте
+# при REPLACE_AVATAR = false и DEL_README_AVATAR = True
+# с сайта пропадет аватарка в принципе - техдолг монолитной архитектуры генерации
 AS_IMAGE_WIDTH = 300  # ширина PNG не рекомендуется более 890
 
 # Всё что в README.md между заданными плейсхолдерами ишнорируется при сборке html
