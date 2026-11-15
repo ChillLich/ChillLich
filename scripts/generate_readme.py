@@ -7,7 +7,6 @@ from pathlib import Path
 from random import choice
 from zoneinfo import ZoneInfo
 
-import requests
 from ascii_magic import AsciiArt
 from pyfiglet import Figlet
 
@@ -26,6 +25,7 @@ LIST_OF_FONTS = ["bulbhead", "lean", "larry3d", "standard", "doom"]
 TEXT_WIDTH = 120  # максимальная ширина в символах для pyfiglet
 
 # Размер аватарки
+AVATAR_SIZE = 460  # В пикселях GET к GITHUB. Если None, то оригинальный размер
 COLUMNS = 104  # в символах. 104 чтобы не скроллить горизонтально если добавлять как raw ascii
 ADD_AVATAR = True  # Показывать ли аватар?
 # False чтобы вывести аватарку как изображение <img> в README.md
@@ -49,12 +49,11 @@ REPLACE_AVATAR_PLACEHOLDER = "<!-- AVATAR_AS_RAW_ASCII -->"
 
 def get_avatar_ascii(username: str, columns: int = 104) -> str:
     """Получить ASCII строку - аватарку GitHub, использует API"""
-    token = os.getenv("GITHUB_TOKEN")
-    headers = {"Authorization": f"Bearer {token}"} if token else {}
 
-    request = requests.get(f"https://api.github.com/users/{username}", headers=headers)
-    request.raise_for_status()
-    avatar_url = request.json()["avatar_url"]
+    avatar_url = f"https://github.com/{username}.png"
+
+    if AVATAR_SIZE is not None:
+        avatar_url += f"?size={AVATAR_SIZE}"
 
     art = AsciiArt.from_url(avatar_url)
     art.to_image_file(PATH_PNG, columns=columns)
